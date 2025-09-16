@@ -1,660 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-en="Portfolio - Your Name" data-ja="ポートフォリオ - あなたの名前">Portfolio - Your Name</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Light theme */
-            --background: #FFFFFF;
-            --foreground: #1a1a1a;
-            --card: #FFFFFF;
-            --card-foreground: #1a1a1a;
-            /* Changed from purple to blue tones */
-            --primary: #2563eb;
-            --primary-foreground: #FFFFFF;
-            --secondary: #f8fafc;
-            --secondary-foreground: #64748b;
-            --muted: #f1f5f9;
-            --muted-foreground: #64748b;
-            --accent: #3b82f6;
-            --accent-foreground: #FFFFFF;
-            --border: #e2e8f0;
-            --input: #FFFFFF;
-            --ring: rgba(59, 130, 246, 0.3);
-            --radius: 0.75rem;
-        }
-
-        [data-theme="dark"] {
-            /* Dark theme */
-            --background: #0f172a;
-            --foreground: #f8fafc;
-            --card: #1e293b;
-            --card-foreground: #f8fafc;
-            /* Changed from purple to blue tones */
-            --primary: #3b82f6;
-            --primary-foreground: #FFFFFF;
-            --secondary: #1e293b;
-            --secondary-foreground: #94a3b8;
-            --muted: #334155;
-            --muted-foreground: #94a3b8;
-            --accent: #60a5fa;
-            --accent-foreground: #FFFFFF;
-            --border: #334155;
-            --input: #1e293b;
-            --ring: rgba(96, 165, 250, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            line-height: 1.6;
-            color: var(--foreground);
-            background-color: var(--background);
-            scroll-behavior: smooth;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--border);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(15, 23, 42, 0.95);
-        }
-
-        .navbar.scrolled {
-            background: var(--background);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--foreground);
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-links a.active {
-            color: var(--accent);
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Added theme toggle and language toggle buttons */
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .theme-toggle, .lang-toggle {
-            background: none;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 0.5rem;
-            cursor: pointer;
-            color: var(--foreground);
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .theme-toggle:hover, .lang-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .lang-toggle {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: var(--background);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-            color: var(--foreground);
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: var(--muted-foreground);
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--accent);
-            color: var(--accent-foreground);
-            text-decoration: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--foreground);
-            position: relative;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--muted-foreground);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        /* About Section */
-        .about {
-            background: var(--secondary);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
-            width: 100%;
-            height: 400px;
-            background: url('/placeholder.svg?height=400&width=300') center/cover;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--foreground);
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            color: var(--muted-foreground);
-        }
-
-        /* Completely redesigned Tech Stack section to match the provided image */
-        .tech-stack {
-            background: var(--background);
-        }
-
-        .tech-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .tech-category {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .tech-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .category-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--accent-foreground);
-        }
-
-        .category-info h3 {
-            font-size: 1.25rem;
-            color: var(--foreground);
-            margin-bottom: 0.25rem;
-        }
-
-        .category-info p {
-            color: var(--muted-foreground);
-            font-size: 0.9rem;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-
-        .tech-tag {
-            background: var(--muted);
-            color: var(--foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            background: var(--accent);
-            color: var(--accent-foreground);
-        }
-
-        .more-tag {
-            background: var(--border);
-            color: var(--muted-foreground);
-        }
-
-        /* Projects */
-        .projects {
-            background: var(--secondary);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background: var(--card);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: url('/placeholder.svg?height=200&width=350') center/cover;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--foreground);
-        }
-
-        .project-description {
-            color: var(--muted-foreground);
-            margin-bottom: 1rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tag {
-            background: var(--accent);
-            color: var(--accent-foreground);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: var(--accent);
-        }
-
-        /* Experience & Education */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            width: 50%;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            padding-right: 2rem;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            padding-left: 2rem;
-        }
-
-        .timeline-content {
-            background: var(--card);
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            border: 1px solid var(--border);
-        }
-
-        .timeline-date {
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            color: var(--foreground);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-company {
-            color: var(--muted-foreground);
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        /* Contact */
-        .contact {
-            background: var(--background);
-        }
-
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-form {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: grid;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: 500;
-            color: var(--foreground);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 1rem;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--input);
-            color: var(--foreground);
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--ring);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: var(--accent);
-            color: var(--accent-foreground);
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            justify-self: start;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--foreground);
-            color: var(--background);
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--background);
-                flex-direction: column;
-                padding: 1rem 2rem;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                border: 1px solid var(--border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .nav-controls {
-                order: -1;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                left: 0 !important;
-                padding-left: 3rem !important;
-                padding-right: 0 !important;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .tech-categories {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Added hidden class for language switching */
-        .hidden {
-            display: none !important;
-        }
-    </style>
+    <title data-en="Igor Venancio | Portfolio" data-ja="ポートフォリオ - あなたの名前">Portfolio - Your Name</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
@@ -672,7 +28,7 @@
             <!-- Added theme toggle and language toggle controls -->
             <div class="nav-controls">
                 <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
-                <button class="lang-toggle" id="langToggle">EN</button>
+                <button class="lang-toggle" id="langToggle"></button>
                 <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
             </div>
         </div>
@@ -681,47 +37,63 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content fade-in">
-            <h1 data-en="Hello, I'm Your Name" data-ja="こんにちは、私は[あなたの名前]です">Hello, I'm Your Name</h1>
-            <p data-en="Full Stack Developer & Creative Problem Solver" data-ja="フルスタック開発者 & クリエイティブな問題解決者">Full Stack Developer & Creative Problem Solver</p>
+            <h1 data-en="Hey, I'm Igor Venancio" data-ja="こんにちは、イーゴル・ヴェナンシオです">Hey, I'm Igor Venancio</h1>
+            <p data-en="Full-Stack Developer | Future Software Architect" data-ja="フルスタック開発者 | 将来のソフトウェアアーキテクト">
+                Full-Stack Developer | Future Software Architect</p>
             <a href="#contact" class="cta-button" data-en="Get In Touch" data-ja="お問い合わせ">Get In Touch</a>
+            <p data-en="Scroll down to see my work." data-ja="下にスクロールして私の作品をご覧ください。">Scroll down to see my work.</p>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="section about">
         <div class="container">
-            <h2 class="section-title fade-in" data-en="About Me" data-ja="私について">About Me</h2>
+            <h2 class="section-title fade-in" data-en="About Me" data-ja="自己紹介">About Me</h2>
             <div class="about-content">
                 <div class="about-image fade-in"></div>
                 <div class="about-text fade-in">
-                    <h3 data-en="Passionate Developer" data-ja="情熱的な開発者">Passionate Developer</h3>
-                    <p data-en="I'm a dedicated full-stack developer with a passion for creating beautiful, functional web applications. With expertise in modern technologies and a keen eye for design, I bring ideas to life through code." data-ja="私は美しく機能的なWebアプリケーションを作ることに情熱を注ぐ、献身的なフルスタック開発者です。最新技術の専門知識とデザインへの鋭い目を持ち、コードを通してアイデアを実現します。">I'm a dedicated full-stack developer with a passion for creating beautiful, functional web applications. With expertise in modern technologies and a keen eye for design, I bring ideas to life through code.</p>
-                    <p data-en="When I'm not coding, you can find me exploring nature, reading about the latest tech trends, or working on personal projects that challenge my creativity and technical skills." data-ja="コーディングをしていない時は、自然を探索したり、最新の技術トレンドについて読んだり、創造性と技術スキルに挑戦する個人プロジェクトに取り組んだりしています。">When I'm not coding, you can find me exploring nature, reading about the latest tech trends, or working on personal projects that challenge my creativity and technical skills.</p>
-                    <p data-en="I believe in writing clean, maintainable code and creating user experiences that make a difference." data-ja="私はクリーンで保守可能なコードを書き、違いを生むユーザーエクスペリエンスを作ることを信じています。">I believe in writing clean, maintainable code and creating user experiences that make a difference.</p>
+                    <h3 data-en="Interested in Designing Solid, Reliable Systems" data-ja="堅実で信頼性の高いシステムの設計に興味があります">
+                        Interested in Designing Solid, Reliable Systems</h3>
+                    <p data-en="I’m a full-stack developer who enjoys designing solid systems, building reliable backends, and planning databases that make sense. I like thinking through how applications are structured and solving problems through code."
+                        data-ja="フルスタック開発者として、堅実なシステムの設計や信頼できるバックエンド構築、分かりやすいデータベース設計が好きです。アプリケーションの構造を考え、問題を解決するのが楽しいです。">
+                        I’m a full-stack developer who enjoys designing solid systems, building reliable backends, and
+                        planning databases that make sense. I like thinking through how applications are structured and
+                        solving problems through code.</p>
+                    <p data-en="I’m always learning through personal projects that challenge my technical skills and creativity, exploring new approaches and gradually improving how I build systems."
+                        data-ja="個人プロジェクトを通して、自分の技術や創造力に挑戦しながら学び、新しいアプローチを試して少しずつシステムの作り方を改善しています。">I’m always learning
+                        through personal projects that challenge my technical skills and creativity, exploring new
+                        approaches and gradually improving how I build systems.</p>
+                    <p data-en="Outside of coding, I enjoy peaceful environments and having a fun time with friends. I believe being kind to others is a choice worth making."
+                        data-ja="コーディング以外では、落ち着いた環境や友人と楽しい時間を過ごすことが好きです。人に優しくすることは自分で選べることだと思っています。">Outside of coding,
+                        I enjoy peaceful environments and having a fun time with friends. I believe being kind to others
+                        is a choice worth making.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Completely redesigned Tech Stack Section to match the provided image -->
+    <!-- Tech Stack Section -->
     <section id="tech" class="section tech-stack">
         <div class="container">
             <h2 class="section-title fade-in" data-en="Tech Stack" data-ja="技術スタック">Tech Stack</h2>
-            <p class="section-subtitle fade-in" data-en="Technologies and tools I work with" data-ja="私が使用する技術とツール">Technologies and tools I work with</p>
+            <p class="section-subtitle fade-in" data-en="Technologies and tools I work with" data-ja="私が使用する技術とツール">
+                Technologies and tools I work with</p>
             <div class="tech-categories">
                 <div class="tech-category fade-in">
                     <div class="category-header">
                         <div class="category-icon">💻</div>
                         <div class="category-info">
                             <h3 data-en="Programming Languages" data-ja="プログラミング言語">Programming Languages</h3>
-                            <p data-en="Core languages for systems and application development" data-ja="システムとアプリケーション開発のためのコア言語">Core languages for systems and application development</p>
+                            <p data-en="Core languages for systems and application development"
+                                data-ja="システムとアプリケーション開発のためのコア言語">Core languages for systems and application development
+                            </p>
                         </div>
                     </div>
                     <div class="tech-tags">
-                        <span class="tech-tag">C++</span>
-                        <span class="tech-tag">C</span>
+                        <span class="tech-tag">C#</span>
                         <span class="tech-tag">Java</span>
-                        <span class="tech-tag more-tag">+4 more</span>
+                        <span class="tech-tag">Python</span>
+
                     </div>
                 </div>
 
@@ -730,14 +102,16 @@
                         <div class="category-icon">🔧</div>
                         <div class="category-info">
                             <h3 data-en="Engineering Concepts" data-ja="エンジニアリング概念">Engineering Concepts</h3>
-                            <p data-en="Fundamental software engineering principles" data-ja="基本的なソフトウェアエンジニアリング原則">Fundamental software engineering principles</p>
+                            <p data-en="Fundamental software engineering principles" data-ja="基本的なソフトウェアエンジニアリング原則">
+                                Fundamental software engineering principles</p>
                         </div>
                     </div>
                     <div class="tech-tags">
+                        <span class="tech-tag" data-en="OOP" data-ja="オブジェクト指向">OOP</span>
                         <span class="tech-tag" data-en="Data Structures" data-ja="データ構造">Data Structures</span>
                         <span class="tech-tag" data-en="Algorithms" data-ja="アルゴリズム">Algorithms</span>
-                        <span class="tech-tag">OOP</span>
-                        <span class="tech-tag more-tag">+3 more</span>
+                        <span class="tech-tag" data-en="Design Patterns" data-ja="デザインパターン">Design Patterns</span>
+                        <span class="tech-tag" data-en="REST APIs" data-ja="REST API">REST APIs</span>
                     </div>
                 </div>
 
@@ -746,14 +120,14 @@
                         <div class="category-icon">🎨</div>
                         <div class="category-info">
                             <h3 data-en="Frontend Development" data-ja="フロントエンド開発">Frontend Development</h3>
-                            <p data-en="Modern web development technologies" data-ja="モダンなWeb開発技術">Modern web development technologies</p>
+                            <p data-en="Modern web development technologies" data-ja="モダンなWeb開発技術">Modern web
+                                development technologies</p>
                         </div>
                     </div>
                     <div class="tech-tags">
                         <span class="tech-tag">React</span>
-                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Blazor</span>
                         <span class="tech-tag">HTML/CSS</span>
-                        <span class="tech-tag more-tag">+3 more</span>
                     </div>
                 </div>
 
@@ -762,14 +136,13 @@
                         <div class="category-icon">⚙️</div>
                         <div class="category-info">
                             <h3 data-en="Backend Development" data-ja="バックエンド開発">Backend Development</h3>
-                            <p data-en="Server-side frameworks and technologies" data-ja="サーバーサイドフレームワークと技術">Server-side frameworks and technologies</p>
+                            <p data-en="Server-side frameworks and technologies" data-ja="サーバーサイドフレームワークと技術">Server-side
+                                frameworks and technologies</p>
                         </div>
                     </div>
                     <div class="tech-tags">
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">.NET</span>
                         <span class="tech-tag">Spring Boot</span>
-                        <span class="tech-tag more-tag">+1 more</span>
                     </div>
                 </div>
 
@@ -778,14 +151,16 @@
                         <div class="category-icon">🗄️</div>
                         <div class="category-info">
                             <h3 data-en="Database Systems" data-ja="データベースシステム">Database Systems</h3>
-                            <p data-en="Database management and optimization" data-ja="データベース管理と最適化">Database management and optimization</p>
+                            <p data-en="Database management and optimization" data-ja="データベース管理と最適化">Database management
+                                and optimization</p>
                         </div>
                     </div>
                     <div class="tech-tags">
-                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">SQL</span>
                         <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">MongoDB</span>
                         <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag more-tag">+1 more</span>
+                        <span class="tech-tag">SQL Server</span>
                     </div>
                 </div>
 
@@ -794,19 +169,23 @@
                         <div class="category-icon">🛠️</div>
                         <div class="category-info">
                             <h3 data-en="Development Tools" data-ja="開発ツール">Development Tools</h3>
-                            <p data-en="Tools and environments for development" data-ja="開発のためのツールと環境">Tools and environments for development</p>
+                            <p data-en="Tools and environments for development" data-ja="開発のためのツールと環境">Tools and
+                                environments for development</p>
                         </div>
                     </div>
                     <div class="tech-tags">
-                        <span class="tech-tag">Git</span>
-                        <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">AWS</span>
-                        <span class="tech-tag more-tag">+3 more</span>
+                        <span class="tech-tag" data-en="Git" data-ja="Git">Git</span>
+                        <span class="tech-tag" data-en="Docker" data-ja="Docker">Docker</span>
+                        <span class="tech-tag" data-en="CI/CD" data-ja="CI/CD">CI/CD</span>
+                        <span class="tech-tag" data-en="Postman" data-ja="Postman">Postman</span>
                     </div>
                 </div>
             </div>
-            <div class="fade-in" style="text-align: center; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                <p data-en="With extensive experience in both low-level systems programming and modern web development, I bring a comprehensive understanding of software engineering principles to every project." data-ja="低レベルシステムプログラミングとモダンなWeb開発の両方で豊富な経験を持ち、すべてのプロジェクトにソフトウェアエンジニアリング原則の包括的な理解をもたらします。">With extensive experience in both low-level systems programming and modern web development, I bring a comprehensive understanding of software engineering principles to every project.</p>
+            <div class="fade-in"
+                style="text-align: center; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <p data-en="I’m developing my skills in backend systems and web development, applying software engineering principles in real projects.
+                    data-ja=" バックエンドシステムやウェブ開発のスキルを磨き、実際のプロジェクトでソフトウェア工学の原則を適用しています。">I’m developing my skills in
+                    backend systems and web development, applying software engineering principles in real projects.</p>
             </div>
         </div>
     </section>
@@ -819,51 +198,46 @@
                 <div class="project-card fade-in">
                     <div class="project-image"></div>
                     <div class="project-content">
-                        <h3 class="project-title" data-en="E-Commerce Platform" data-ja="Eコマースプラットフォーム">E-Commerce Platform</h3>
-                        <p class="project-description" data-en="A full-stack e-commerce solution with React frontend and Node.js backend, featuring user authentication, payment processing, and admin dashboard." data-ja="ReactフロントエンドとNode.jsバックエンドを備えたフルスタックEコマースソリューション。ユーザー認証、決済処理、管理ダッシュボードを特徴とします。">A full-stack e-commerce solution with React frontend and Node.js backend, featuring user authentication, payment processing, and admin dashboard.</p>
+                        <h3 class="project-title" data-en="Portfolio Website (In Development)"
+                            data-ja="ポートフォリオサイト（開発中）">Portfolio Website (In Development)</h3>
+                        <p class="project-description"
+                            data-en="A personal static portfolio built with HTML, CSS, and JavaScript, featuring CI/CD integration for seamless deployment to my hosting service."
+                            data-ja="HTML、CSS、JavaScriptで作成した個人ポートフォリオで、CI/CDを導入し、ホスティングサービスへの自動デプロイを実現しています。">A
+                            personal static portfolio built with HTML, CSS, and JavaScript, featuring CI/CD integration
+                            for seamless deployment to my hosting service.</p>
                         <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
-                            <span class="tag">Stripe</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">CD/CI</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link" data-en="Live Demo" data-ja="ライブデモ">Live Demo</a>
-                            <a href="#" class="project-link">GitHub</a>
+                            <a href="https://github.com/IgorVenancio/simple-static-portfolio"
+                                class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
                 <div class="project-card fade-in">
                     <div class="project-image"></div>
                     <div class="project-content">
-                        <h3 class="project-title" data-en="Task Management App" data-ja="タスク管理アプリ">Task Management App</h3>
-                        <p class="project-description" data-en="A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features." data-ja="リアルタイム更新、ドラッグアンドドロップ機能、チームコラボレーション機能を備えた協働タスク管理アプリケーション。">A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.</p>
+                        <h3 class="project-title" data-en="My Kakeibo (In Development)" data-ja="タスク管理アプリ">My Kakeibo
+                            (In Development)
+                        </h3>
+                        <p class="project-description"
+                            data-en="A personal finance management application to track income and expenses, built with React frontend, Java Spring Boot backend, and PostgreSQL database."
+                            data-ja="収入・支出を管理できる個人向け家計簿アプリで、Reactフロントエンド、Java Spring Bootバックエンド、PostgreSQLデータベースで構築しています。">
+                            A personal finance management application to track income and expenses, built with React
+                            frontend, Java Spring Boot backend, and PostgreSQL database.</p>
                         <div class="project-tags">
-                            <span class="tag">Vue.js</span>
-                            <span class="tag">Socket.io</span>
-                            <span class="tag">Express</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Java</span>
+                            <span class="tag">Spring Boot</span>
                             <span class="tag">PostgreSQL</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link" data-en="Live Demo" data-ja="ライブデモ">Live Demo</a>
-                            <a href="#" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-image"></div>
-                    <div class="project-content">
-                        <h3 class="project-title" data-en="Weather Dashboard" data-ja="天気ダッシュボード">Weather Dashboard</h3>
-                        <p class="project-description" data-en="A responsive weather dashboard with location-based forecasts, interactive maps, and historical weather data visualization." data-ja="位置ベースの予報、インタラクティブマップ、過去の天気データ可視化を備えたレスポンシブ天気ダッシュボード。">A responsive weather dashboard with location-based forecasts, interactive maps, and historical weather data visualization.</p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Chart.js</span>
-                            <span class="tag">Weather API</span>
-                            <span class="tag">CSS Grid</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" data-en="Live Demo" data-ja="ライブデモ">Live Demo</a>
-                            <a href="#" class="project-link">GitHub</a>
+                            <a href="#" class="project-link" data-en="Live Demo" data-ja="ライブデモ">Live Demo - Coming
+                                Soon</a>
+                            <a href="https://github.com/IgorVenancio/My-Kakeibo" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -876,30 +250,81 @@
         <div class="container">
             <h2 class="section-title fade-in" data-en="Experience" data-ja="経験">Experience</h2>
             <div class="timeline">
+
+                <!-- Software Engineer - Full Stack -->
                 <div class="timeline-item fade-in">
                     <div class="timeline-content">
-                        <div class="timeline-date">2022 - Present</div>
-                        <h3 class="timeline-title" data-en="Senior Full Stack Developer" data-ja="シニアフルスタック開発者">Senior Full Stack Developer</h3>
-                        <div class="timeline-company">Tech Solutions Inc.</div>
-                        <p data-en="Led development of multiple client projects, mentored junior developers, and implemented best practices for code quality and performance optimization." data-ja="複数のクライアントプロジェクトの開発をリードし、ジュニア開発者をメンタリングし、コード品質とパフォーマンス最適化のベストプラクティスを実装しました。">Led development of multiple client projects, mentored junior developers, and implemented best practices for code quality and performance optimization.</p>
+                        <div class="timeline-date">Aug 2022 - Feb 2025</div>
+                        <h3 class="timeline-title" data-en="Software Engineer - Full Stack"
+                            data-ja="ソフトウェアエンジニア（フルスタック）">
+                            Software Engineer - Full Stack
+                        </h3>
+                        <div class="timeline-company">TSEA Energia | Contagem, Minas Gerais, Brazil</div>
+                        <ul>
+                            <li data-en="Automated engineering workflows in AutoCAD, reducing manual drafting time by 50%."
+                                data-ja="AutoCADでのエンジニアリングワークフローを自動化し、手作業の作図時間を50％削減しました。">Automated engineering
+                                workflows in AutoCAD, reducing manual drafting time by 50%.</li>
+                            <li data-en="Developed tools to collect and export data in a structured, report-friendly format."
+                                data-ja="データを構造化してレポートに適した形式で収集・出力するツールを開発しました。">Developed tools to collect and export
+                                data in a structured, report-friendly format.</li>
+                            <li data-en="Designed, developed, and maintained software using WPF, WinForms, and Blazor frameworks."
+                                data-ja="WPF、WinForms、Blazorフレームワークを使用してソフトウェアの設計・開発・保守を行いました。">Designed, developed, and
+                                maintained software using WPF, WinForms, and Blazor frameworks.</li>
+                            <li data-en="Participated in agile development processes and contributed to technical documentation."
+                                data-ja="アジャイル開発プロセスに参加し、技術文書の作成にも貢献しました。">Participated in agile development processes
+                                and contributed to technical documentation.</li>
+                        </ul>
                     </div>
                 </div>
+
+                <!-- Software Engineer Internship -->
                 <div class="timeline-item fade-in">
                     <div class="timeline-content">
-                        <div class="timeline-date">2020 - 2022</div>
-                        <h3 class="timeline-title" data-en="Full Stack Developer" data-ja="フルスタック開発者">Full Stack Developer</h3>
-                        <div class="timeline-company">Digital Agency Co.</div>
-                        <p data-en="Developed and maintained web applications using React, Node.js, and various databases. Collaborated with design teams to create pixel-perfect user interfaces." data-ja="React、Node.js、および様々なデータベースを使用してWebアプリケーションを開発・保守しました。デザインチームと協力してピクセルパーフェクトなユーザーインターフェースを作成しました。">Developed and maintained web applications using React, Node.js, and various databases. Collaborated with design teams to create pixel-perfect user interfaces.</p>
+                        <div class="timeline-date">Nov 2021 - Aug 2022</div>
+                        <h3 class="timeline-title" data-en="Software Engineer Internship" data-ja="ソフトウェアエンジニア インターン">
+                            Software Engineer Internship
+                        </h3>
+                        <div class="timeline-company">TSEA Energia | Contagem, Minas Gerais, Brazil</div>
+                        <ul>
+                            <li data-en="Migrated legacy systems from VB6 to C#, improving performance and maintainability."
+                                data-ja="VB6からC#へのレガシーシステム移行を行い、パフォーマンスと保守性を向上させました。">Migrated legacy systems from VB6
+                                to C#, improving performance and maintainability.</li>
+                            <li data-en="Modeled PostgreSQL databases and migrated data from MS Access."
+                                data-ja="PostgreSQLデータベースの設計を行い、MS Accessからデータを移行しました。">Modeled PostgreSQL databases and
+                                migrated data from MS Access.</li>
+                            <li data-en="Implemented protocols for communication with electronic equipment."
+                                data-ja="電子機器との通信プロトコルを実装しました。">Implemented protocols for communication with electronic
+                                equipment.</li>
+                            <li data-en="Developed internal tools using Blazor and Web API."
+                                data-ja="BlazorとWeb APIを使用して社内ツールを開発しました。">Developed internal tools using Blazor and Web
+                                API.</li>
+                        </ul>
                     </div>
                 </div>
+
+                <!-- Web Development Internship -->
                 <div class="timeline-item fade-in">
                     <div class="timeline-content">
-                        <div class="timeline-date">2019 - 2020</div>
-                        <h3 class="timeline-title" data-en="Frontend Developer" data-ja="フロントエンド開発者">Frontend Developer</h3>
-                        <div class="timeline-company">Startup Ventures</div>
-                        <p data-en="Built responsive web applications and mobile-first interfaces. Worked closely with UX designers to implement interactive prototypes and user experiences." data-ja="レスポンシブWebアプリケーションとモバイルファーストインターフェースを構築しました。UXデザイナーと密接に協力してインタラクティブプロトタイプとユーザーエクスペリエンスを実装しました。">Built responsive web applications and mobile-first interfaces. Worked closely with UX designers to implement interactive prototypes and user experiences.</p>
+                        <div class="timeline-date">Jan 2015 - Oct 2015</div>
+                        <h3 class="timeline-title" data-en="Web Development Internship" data-ja="ウェブ開発インターン">
+                            Web Development Internship
+                        </h3>
+                        <div class="timeline-company">Helpper - Soluções Inteligentes | Belo Horizonte, Minas Gerais,
+                            Brazil</div>
+                        <ul>
+                            <li data-en="Assisted in the development of web applications using PHP and JavaScript."
+                                data-ja="PHPとJavaScriptを使用したWebアプリケーションの開発をサポートしました。">Assisted in the development of web
+                                applications using PHP and JavaScript.</li>
+                            <li data-en="Supported maintenance and updates of client systems."
+                                data-ja="クライアントシステムの保守と更新をサポートしました。">Supported maintenance and updates of client
+                                systems.</li>
+                            <li data-en="Participated in database design and integration using MySQL."
+                                data-ja="MySQLを使用したデータベース設計と統合に参加しました。">Participated in database design and integration
+                                using MySQL.</li>
+                        </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -909,25 +334,49 @@
         <div class="container">
             <h2 class="section-title fade-in" data-en="Education" data-ja="学歴">Education</h2>
             <div class="timeline">
+
+                <!-- Bachelor's Degree in Computer Science -->
                 <div class="timeline-item fade-in">
                     <div class="timeline-content">
-                        <div class="timeline-date">2015 - 2019</div>
-                        <h3 class="timeline-title" data-en="Bachelor of Computer Science" data-ja="コンピュータサイエンス学士">Bachelor of Computer Science</h3>
-                        <div class="timeline-company" data-en="University of Technology" data-ja="工科大学">University of Technology</div>
-                        <p data-en="Graduated with honors. Focused on software engineering, algorithms, and web development. Active member of the coding club and hackathon participant." data-ja="優秀な成績で卒業。ソフトウェアエンジニアリング、アルゴリズム、Web開発に焦点を当てました。コーディングクラブの活発なメンバーでハッカソン参加者でした。">Graduated with honors. Focused on software engineering, algorithms, and web development. Active member of the coding club and hackathon participant.</p>
+                        <div class="timeline-date">Apr 2021 - Jul 2025</div>
+                        <h3 class="timeline-title" data-en="Bachelor's Degree in Computer Science"
+                            data-ja="コンピュータサイエンス学士">
+                            Bachelor's Degree in Computer Science
+                        </h3>
+                        <div class="timeline-company" data-en="Cruzeiro do Sul Virtual" data-ja="Cruzeiro do Sul Virtual">
+                            Cruzeiro do Sul Virtual
+                        </div>
+                        <p data-en="Pursuing a degree in computer science with focus on software development and programming skills."
+                            data-ja="ソフトウェア開発とプログラミングスキルに焦点を当てたコンピュータサイエンスの学位を取得中。">
+                            Pursuing a degree in computer science with focus on software development and programming
+                            skills.
+                        </p>
                     </div>
                 </div>
+
+                <!-- Technical High School Diploma in IT -->
                 <div class="timeline-item fade-in">
                     <div class="timeline-content">
-                        <div class="timeline-date">2020</div>
-                        <h3 class="timeline-title" data-en="Full Stack Web Development" data-ja="フルスタックWeb開発">Full Stack Web Development</h3>
-                        <div class="timeline-company" data-en="Coding Bootcamp" data-ja="コーディングブートキャンプ">Coding Bootcamp</div>
-                        <p data-en="Intensive 6-month program covering modern web development technologies including React, Node.js, databases, and deployment strategies." data-ja="React、Node.js、データベース、デプロイメント戦略を含むモダンなWeb開発技術をカバーする集中的な6ヶ月プログラム。">Intensive 6-month program covering modern web development technologies including React, Node.js, databases, and deployment strategies.</p>
+                        <div class="timeline-date">Feb 2014 - Dec 2018</div>
+                        <h3 class="timeline-title" data-en="Technical High School Diploma in Information Technology"
+                            data-ja="情報技術 高等専門学校卒業">
+                            Technical High School Diploma in Information Technology
+                        </h3>
+                        <div class="timeline-company" data-en="COTEMIG - Colégio e Faculdade" data-ja="COTEMIG - Colégio e Faculdade">
+                            COTEMIG - Colégio e Faculdade
+                        </div>
+                        <p data-en="Completed technical studies in information technology, gaining foundational knowledge in programming and systems."
+                            data-ja="情報技術の専門課程を修了し、プログラミングやシステムの基礎知識を習得。">
+                            Completed technical studies in information technology, gaining foundational knowledge in
+                            programming and systems.
+                        </p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+
 
     <!-- Contact Section -->
     <section id="contact" class="section contact">
@@ -951,7 +400,8 @@
                         <label for="message" data-en="Message" data-ja="メッセージ">Message</label>
                         <textarea id="message" name="message" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn" data-en="Send Message" data-ja="メッセージを送信">Send Message</button>
+                    <button type="submit" class="submit-btn" data-en="Send Message" data-ja="メッセージを送信">Send
+                        Message</button>
                 </form>
             </div>
         </div>
@@ -960,161 +410,13 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p data-en="© 2024 Your Name. All rights reserved." data-ja="© 2024 あなたの名前. All rights reserved.">&copy; 2024 Your Name. All rights reserved.</p>
+            <p data-en="© 2025 Igor Venancio. All rights reserved."
+                data-ja="© 2025 Igor Venancio. All rights reserved.">&copy;
+                2025 Igor Venancio. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                // Close mobile menu if open
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Contact form handling
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-            
-            // Simple validation
-            if (!name || !email || !subject || !message) {
-                const currentLang = document.documentElement.getAttribute('data-lang') || 'en';
-                const alertMessage = currentLang === 'ja' ? 'すべてのフィールドを入力してください。' : 'Please fill in all fields.';
-                alert(alertMessage);
-                return;
-            }
-            
-            // Simulate form submission
-            const currentLang = document.documentElement.getAttribute('data-lang') || 'en';
-            const successMessage = currentLang === 'ja' ? 'メッセージをありがとうございます！すぐにご連絡いたします。' : 'Thank you for your message! I\'ll get back to you soon.';
-            alert(successMessage);
-            contactForm.reset();
-        });
-
-        // Add active state to navigation links based on scroll position
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Added theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        body.setAttribute('data-theme', currentTheme);
-        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-        });
-
-        // Added language toggle functionality
-        const langToggle = document.getElementById('langToggle');
-        let currentLang = localStorage.getItem('language') || 'en';
-        
-        // Set initial language
-        document.documentElement.setAttribute('data-lang', currentLang);
-        langToggle.textContent = currentLang.toUpperCase();
-        updateLanguage(currentLang);
-
-        langToggle.addEventListener('click', () => {
-            currentLang = currentLang === 'en' ? 'ja' : 'en';
-            document.documentElement.setAttribute('data-lang', currentLang);
-            localStorage.setItem('language', currentLang);
-            langToggle.textContent = currentLang.toUpperCase();
-            updateLanguage(currentLang);
-        });
-
-        function updateLanguage(lang) {
-            const elements = document.querySelectorAll('[data-en][data-ja]');
-            elements.forEach(element => {
-                const text = element.getAttribute(`data-${lang}`);
-                if (text) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = text;
-                    } else {
-                        element.textContent = text;
-                    }
-                }
-            });
-        }
-    </script>
+    <script type="text/javascript" src="script.js"></script>
 </body>
+
 </html>
