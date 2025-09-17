@@ -433,8 +433,10 @@ h6 {
 }
 
 .project-links {
-    display: flex;
-    gap: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    border: 1px solid var(--primary);
 }
 
 .project-link {
@@ -447,6 +449,14 @@ h6 {
 .project-link:hover {
     color: var(--accent);
 }
+
+
+.project-image {
+  object-fit: cover;      /* fills container, crops excess */
+  object-position: center; /* centers main content */
+  display: block;
+}
+
 
 /* Experience & Education */
 .timeline {
